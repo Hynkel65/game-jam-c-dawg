@@ -52,6 +52,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	# Animation
+	
 	if not is_on_floor():
 		# WALL CLING ANIMATION CHECK
 		if has_wall_climb and is_on_wall() and velocity.y > 0 and direction != 0:
