@@ -13,6 +13,16 @@ var has_wall_climb = false
 # Variable to track if a double jump has been used since leaving the ground
 var can_double_jump = false
 
+func _ready():
+	var sm = save_manager
+	
+	sm.load_game()
+	
+	has_double_jump = sm.get_ability_state("has_double_jump")
+	has_wall_climb = sm.get_ability_state("has_wall_climb")
+	
+	can_double_jump = has_double_jump
+
 # --- CORE PHYSICS PROCESSING ---
 func _physics_process(delta):	
 	# 1. Apply Gravity
@@ -56,7 +66,7 @@ func _physics_process(delta):
 		# WALL CLING ANIMATION CHECK
 		if has_wall_climb and is_on_wall() and velocity.y > 0 and direction != 0:
 			# If clinging to a wall, use a specific animation or the Fall one
-			$AnimatedSprite2D.animation = "Cling" # Assuming you have a "Cling" animation
+			$AnimatedSprite2D.animation = "Cling"
 		elif velocity.y < 0:
 			$AnimatedSprite2D.animation = "Jump"
 		else: # velocity.y >= 0 (Falling)
@@ -72,14 +82,26 @@ func _physics_process(delta):
 
 # --- ABILITY UNLOCK FUNCTION ---
 func unlock_ability(ability_name):
+	var sm = save_manager
+	var state_changed = false
+	
 	match ability_name:
 		"double_jump":
-			has_double_jump = true
-			# Also grant the first double jump immediately if we're in the air
-			can_double_jump = true 
-			print("Ability Unlocked: Double Jump!")
+			if not has_double_jump:
+				has_double_jump = true
+				sm.set_ability_state("has_double_jump", true)
+				print("Ability Unlocked: Double Jump!")
+				state_changed = true
+				
 		"wall_climb":
-			has_wall_climb = true
-			print("Ability Unlocked: Wall Climb!")
+			if not has_wall_climb:
+				has_wall_climb = true
+				sm.set_ability_state("has_wall_climb", true)
+				print("Ability Unlocked: Wall Climb!")
+				state_changed = true
+	
+	if state_changed:
+		if ability_name == "double_jump":
+			can_double_jump = true
 	
 	# Optional: Show UI update here
