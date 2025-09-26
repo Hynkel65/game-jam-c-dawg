@@ -13,6 +13,8 @@ var has_wall_climb = false
 # Variable to track if a double jump has been used since leaving the ground
 var can_double_jump = false
 
+var last_direction: float = 1.0
+
 func _ready():
 	var sm = save_manager
 	
@@ -55,9 +57,11 @@ func _physics_process(delta):
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = direction * SPEED
+		last_direction = direction
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
-
+		
+		
 	# 4. Use built-in function to move the body
 	move_and_slide()
 	
@@ -68,18 +72,22 @@ func _physics_process(delta):
 		if has_wall_climb and is_on_wall() and velocity.y > 0 and direction != 0:
 			# If clinging to a wall, use a specific animation or the Fall one
 			$AnimatedSprite2D.animation = "Cling"
+			$AnimatedSprite2D.flip_h = last_direction > 0
 		elif velocity.y < 0:
 			$AnimatedSprite2D.animation = "Jump"
+			$AnimatedSprite2D.flip_h = last_direction < 0
 		else: # velocity.y >= 0 (Falling)
 			$AnimatedSprite2D.animation = "Fall"
+			$AnimatedSprite2D.flip_h = last_direction < 0
 			
 	elif velocity.x != 0:
 		# Running/Moving on the floor
 		$AnimatedSprite2D.play("Move")
-		$AnimatedSprite2D.flip_h = direction < 0
+		$AnimatedSprite2D.flip_h = last_direction < 0
 	else:
 		# Idle (Standing still on the floor)
 		$AnimatedSprite2D.play("Idle")
+		$AnimatedSprite2D.flip_h = last_direction < 0
 
 # --- ABILITY UNLOCK FUNCTION ---
 func unlock_ability(ability_name):
