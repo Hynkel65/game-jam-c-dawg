@@ -2,8 +2,10 @@ extends CharacterBody2D
 
 # Core Movement Variables
 const SPEED = 200.0
-const JUMP_VELOCITY = -450.0
-const WALL_JUMP_VELOCITY = 300.0
+const JUMP_VELOCITY = -300.0
+const WALL_JUMP_VELOCITY = -200.0
+const WALL_JUMP_COOLDOWN_TIME = 0.5
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # Ability Variables (The Core Progression System)
@@ -13,6 +15,8 @@ var has_wall_jump = false
 
 # Variable to track if a double jump has been used since leaving the ground
 var can_double_jump = false
+
+var wall_jump_cooldown: float = 0.0
 
 var last_direction: float = 1.0
 
@@ -30,34 +34,39 @@ func _ready():
 	can_double_jump = has_double_jump
 
 # --- CORE PHYSICS PROCESSING ---
-func _physics_process(delta):	
+func _physics_process(delta):
+	if wall_jump_cooldown > 0.0:
+		wall_jump_cooldown -= delta
+		
 	# --- Apply Gravity ---
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
-		# WALL CLING MECHANIC (Rescued Pal #2)
 		var horizontal_input = Input.get_axis("move_left", "move_right")
-		if has_wall_jump and horizontal_input != 0 and is_on_wall():
-			velocity.y = min(velocity.y, 50.0) # Slow fall down wall
-			
-	else: # Reset double jump only when touching the floor
+		if is_on_wall():
+			if wall_jump_cooldown <= 0.0 and sign(horizontal_input) == -get_wall_normal().x and horizontal_input != 0:
+				velocity.y = min(velocity.y, 50.0) # Slow the fall
+	else: 
 		can_double_jump = has_double_jump
+		wall_jump_cooldown = 0.0
 
 	# 2. Handle Jump Input
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
-			can_double_jump = has_double_jump # Reset double jump availability
 		
 		# WALL JUMP MECHANIC (Rescued Pal #2) - Check before double jump
 		elif has_wall_jump and is_on_wall():
 			# Determine opposite direction of the wall (e.g., if wall is on the right, jump left)
 			var wall_normal = get_wall_normal()
+			
+			# Apply the forced horizontal and vertical velocity
 			velocity.x = -wall_normal.x * WALL_JUMP_VELOCITY
 			velocity.y = JUMP_VELOCITY
-			# Update last_direction to face the direction of the wall jump
-			last_direction = velocity.x / WALL_JUMP_VELOCITY
-			can_double_jump = true # Reset double jump after a wall jump
+			last_direction = velocity.x
+			
+			# START COOLDOWN: Player loses horizontal control briefly
+			wall_jump_cooldown = WALL_JUMP_COOLDOWN_TIME
 		
 		# DOUBLE JUMP MECHANIC (Rescued Pal #1)
 		elif can_double_jump:
@@ -66,31 +75,28 @@ func _physics_process(delta):
 
 	# 3. Handle Horizontal Movement
 	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		# Wall jumping usually means velocity.x is high, so check direction of motion
-		# and only override if the player isn't actively moving away from the wall.
-		if is_on_floor() or sign(velocity.x) == sign(direction) or abs(velocity.x) < WALL_JUMP_VELOCITY:
+	if wall_jump_cooldown <= 0.0:
+		if direction:
 			velocity.x = direction * SPEED
 			last_direction = direction
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
-		
-	# 4. Use built-in function to move the body
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
+	
 	move_and_slide()
 	
 	# Animation
 	if not is_on_floor():
-		# WALL CLING ANIMATION CHECK
-		if has_wall_jump and is_on_wall() and velocity.y > 0 and direction != 0:
-			# If clinging to a wall, use a specific animation or the Fall one
-			$AnimatedSprite2D.animation = "Cling"
-			$AnimatedSprite2D.flip_h = last_direction > 0
-		elif velocity.y < 0:
+		if velocity.y < 0:
 			$AnimatedSprite2D.animation = "Jump"
 			$AnimatedSprite2D.flip_h = last_direction < 0
-		else: # velocity.y >= 0 (Falling)
-			$AnimatedSprite2D.animation = "Fall"
-			$AnimatedSprite2D.flip_h = last_direction < 0
+		elif velocity.y > 0:
+			if is_on_wall():
+				$AnimatedSprite2D.animation = "Cling"
+				$AnimatedSprite2D.flip_h = last_direction > 0
+			else:
+				# Simple Fall
+				$AnimatedSprite2D.animation = "Fall"
+				$AnimatedSprite2D.flip_h = last_direction < 0
 			
 	elif velocity.x != 0:
 		# Running/Moving on the floor
@@ -114,20 +120,19 @@ func unlock_ability(ability_name):
 		"double_jump":
 			if not has_double_jump:
 				has_double_jump = true
-				sm.set_ability_state("has_double_jump", true)
 				state_changed = true
 				
 		"wall_jump":
 			if not has_wall_jump:
 				has_wall_jump = true
-				sm.set_ability_state("has_wall_jump", true)
 				state_changed = true
-				
+					
 		_:
 			print("WARNING: Tried to unlock unknown ability: ", ability_name)
 	
 	if state_changed:
 		sm.set_ability_state(ability_name, true)
+		sm.save_game()
 		print("Ability Unlocked: ", ability_name)
 	
 	# Optional: Show UI update here
