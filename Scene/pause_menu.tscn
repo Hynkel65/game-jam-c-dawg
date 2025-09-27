@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c32te00qv2qe"]
+[gd_scene load_steps=3 format=3 uid="uid://c32te00qv2qe"]
 
-[ext_resource type="Script" uid="uid://bc2216iqc0iea" path="res://Scene/pause_menu.gd" id="1_i3got"]
+[ext_resource type="Script" uid="uid://bc2216iqc0iea" path="res://Script/pause_menu.gd" id="1_i3got"]
+[ext_resource type="PackedScene" uid="uid://bb0vb25j1r3p3" path="res://Scene/options.tscn" id="2_ur6gg"]
 
 [node name="pause_menu" type="Control"]
 process_mode = 3
@@ -12,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i3got")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="pause_panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,28 +27,40 @@ offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_panel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="resume" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="resume" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="restart" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="restart" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
 
-[node name="options" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="options" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
 text = "Options"
 
-[node name="main_menu" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="main_menu" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "Save & Quit"
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/main_menu" to="." method="_on_main_menu_pressed"]
+[node name="options" parent="." instance=ExtResource("2_ur6gg")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = -75.0
+offset_right = 95.5
+offset_bottom = 75.0
+
+[connection signal="pressed" from="pause_panel/VBoxContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/main_menu" to="." method="_on_main_menu_pressed"]
