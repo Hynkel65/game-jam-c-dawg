@@ -1,7 +1,5 @@
 extends Control
 
-@onready var option_buttons: Panel = $option_buttons
-
 #func _ready():
 	#option_buttons.visible = true
 #

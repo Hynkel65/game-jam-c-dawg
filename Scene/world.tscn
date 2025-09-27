@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://btf2xrhvybsuh"]
+[gd_scene load_steps=8 format=4 uid="uid://btf2xrhvybsuh"]
 
 [ext_resource type="Texture2D" uid="uid://d7n3d14n8b0y" path="res://TileMapLayer/tiles.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://cryi4m4sfyfqi" path="res://Script/world.gd" id="1_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://blhr26avn66pn" path="res://Scene/player.tscn" id="3_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://dln43cnqunx66" path="res://Scene/pal.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://c32te00qv2qe" path="res://Scene/pause_menu.tscn" id="5_pcvp0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 resource_name = "Platform"
@@ -380,3 +381,12 @@ position = Vector2(438, 41)
 collision_mask = 2
 ability_name = "wall_jump"
 pal_visual_name = "Wall jump Pal"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("5_pcvp0")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
