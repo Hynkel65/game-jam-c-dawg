@@ -1,18 +1,17 @@
 extends Control
 
-#@onready var pause_panel: PanelContainer = $PanelContainer
-@onready var pause_menu: Control = $"."
+@onready var panel_container: PanelContainer = $PanelContainer
 
 func _ready():
-	pause_menu.visible = false
+	panel_container.visible = false
 
 func resume():
 	get_tree().paused = false
-	pause_menu.visible = false
+	panel_container.visible = false
 
 func pause():
 	get_tree().paused = true
-	pause_menu.visible = true
+	panel_container.visible = true
 
 func pressesc():
 	if Input.is_action_just_pressed("Pause") and !get_tree().paused:
@@ -29,10 +28,9 @@ func _on_restart_pressed() -> void:
 	
 func _on_options_pressed() -> void:
 	print("options")
-	$options.open()
-
+	
 func _on_main_menu_pressed() -> void:
-	SaveManager.save_game()
+	print("return to main menu")
 	resume()
 	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")
 
