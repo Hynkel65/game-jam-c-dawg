@@ -16,7 +16,7 @@ var can_double_jump = false
 var last_direction: float = 1.0
 
 func _ready():
-	var sm = save_manager
+	var sm = SaveManager
 	
 	sm.load_game()
 	
@@ -91,7 +91,7 @@ func _physics_process(delta):
 
 # --- ABILITY UNLOCK FUNCTION ---
 func unlock_ability(ability_name):
-	var sm = save_manager
+	var sm = SaveManager
 	var state_changed = false
 	
 	match ability_name:

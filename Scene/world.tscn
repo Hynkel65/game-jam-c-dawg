@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d7n3d14n8b0y" path="res://TileMapLayer/tiles.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://cryi4m4sfyfqi" path="res://Script/world.gd" id="1_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://blhr26avn66pn" path="res://Scene/player.tscn" id="3_aqk2v"]
-[ext_resource type="PackedScene" uid="uid://dln43cnqunx66" path="res://Scene/pal_double_jump.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://dln43cnqunx66" path="res://Scene/pal.tscn" id="4_aqk2v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
 resource_name = "Platform"
@@ -368,7 +368,5 @@ position = Vector2(-97, 30)
 collision_layer = 255
 collision_mask = 255
 
-[node name="Pal_DoubleJump" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(16, 43)
-collision_layer = 255
-collision_mask = 255
+[node name="Pal" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(16, 41)
