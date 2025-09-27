@@ -5,7 +5,7 @@ const SAVE_PATH = "user://game_save.dat"
 # Define ALL possible ability keys here. This is the master list.
 const ALL_ABILITY_KEYS = [
 	"double_jump", 
-	"wall_climb",
+	"wall_jump",
 ]
 
 var abilities: Dictionary = {}
