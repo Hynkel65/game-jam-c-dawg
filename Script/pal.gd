@@ -1,10 +1,12 @@
 extends Area2D
 
-@export var ability_to_unlock: String = "double_jump" 
+@export var ability_name: String = "double_jump" 
+@export var pal_visual_name: String = "Double Jump Pal"
+
 var rescued = false
 
 func _ready():
-	if save_manager.get_ability_state(ability_to_unlock):
+	if SaveManager.get_ability_state(ability_name):
 		hide_pal()
 		rescued = true
 		
@@ -19,13 +21,13 @@ func _on_body_entered(body):
 		print("Body is CharacterBody2D and pal is not rescued. Proceeding to unlock.")
 		# Check if the colliding body is the player
 		if body.has_method("unlock_ability"):
-			print("Player has unlock_ability method. Unlocking: ", ability_to_unlock)
-			body.unlock_ability(ability_to_unlock)
+			print("Player has unlock_ability method. Unlocking: ", ability_name)
+			body.unlock_ability(ability_name)
 			
 			# Visually remove/hide the Pal and mark as rescued
 			hide_pal()
 			rescued = true
-			print("Pal hidden and marked as rescued.")
+			print("Pal '", pal_visual_name, "' rescued! Ability unlocked: ", ability_name)
 		else:
 			print("ERROR: CharacterBody2D does not have the 'unlock_ability' method.")
 	elif rescued:

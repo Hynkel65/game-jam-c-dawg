@@ -1,14 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dln43cnqunx66"]
 
-[ext_resource type="Script" uid="uid://ouqvp02kp22x" path="res://Script/pal_double_jump.gd" id="1_7uai3"]
+[ext_resource type="Script" uid="uid://ouqvp02kp22x" path="res://Script/pal.gd" id="1_7uai3"]
 [ext_resource type="Texture2D" uid="uid://dnjdnbxb0p1ny" path="res://Sprite/Player/death_5.png" id="2_wncc1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y272b"]
 size = Vector2(26, 10)
 
-[node name="Pal_DoubleJump" type="Area2D"]
+[node name="Pal" type="Area2D"]
 collision_layer = 8
-collision_mask = 10
 script = ExtResource("1_7uai3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
