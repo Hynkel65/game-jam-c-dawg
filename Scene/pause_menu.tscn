@@ -36,9 +36,9 @@ size_flags_vertical = 4
 layout_mode = 2
 text = "Resume"
 
-[node name="restart" type="Button" parent="pause_panel/VBoxContainer"]
+[node name="reset" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
-text = "Restart"
+text = "Reset"
 
 [node name="options" type="Button" parent="pause_panel/VBoxContainer"]
 layout_mode = 2
@@ -49,6 +49,7 @@ layout_mode = 2
 text = "Save & Quit"
 
 [node name="options" parent="." instance=ExtResource("2_ur6gg")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -61,6 +62,6 @@ offset_right = 95.5
 offset_bottom = 75.0
 
 [connection signal="pressed" from="pause_panel/VBoxContainer/resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="pause_panel/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="pause_panel/VBoxContainer/reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="pause_panel/VBoxContainer/options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="pause_panel/VBoxContainer/main_menu" to="." method="_on_main_menu_pressed"]

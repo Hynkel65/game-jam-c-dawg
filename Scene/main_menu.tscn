@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjwcbec6uyyyq"]
+[gd_scene load_steps=10 format=3 uid="uid://cjwcbec6uyyyq"]
 
 [ext_resource type="Script" uid="uid://bmsxv3x1vrnjc" path="res://Script/main_menu.gd" id="1_06t4h"]
 [ext_resource type="PackedScene" uid="uid://bb0vb25j1r3p3" path="res://Scene/options.tscn" id="2_87ipw"]
+[ext_resource type="AudioStream" uid="uid://yyy3bxxaqenm" path="res://main_theme1.mp3" id="3_hii65"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
 bg_color = Color(1, 1, 1, 1)
@@ -141,7 +142,13 @@ theme_override_font_sizes/font_size = 48
 text = "SAVE THE PALS"
 
 [node name="options" parent="." instance=ExtResource("2_87ipw")]
+visible = false
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_hii65")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="main_buttons/New_game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_buttons/Continue" to="." method="_on_continue_pressed"]
