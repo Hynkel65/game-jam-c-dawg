@@ -15,29 +15,29 @@ var can_double_jump = false
 
 var last_direction: float = 1.0
 
+var sm = SaveManager 
+
 func _ready():
-	var sm = SaveManager
+	if sm:
+		sm.load_game()
+		
+		# Load the state for every ability key
+		has_double_jump = sm.get_ability_state("double_jump")
+		has_wall_climb = sm.get_ability_state("wall_climb")
 	
-	sm.load_game()
-	
-	has_double_jump = sm.get_ability_state("has_double_jump")
-	has_wall_climb = sm.get_ability_state("has_wall_climb")
-	
+	# Initialize internal state based on abilities
 	can_double_jump = has_double_jump
 
 # --- CORE PHYSICS PROCESSING ---
 func _physics_process(delta):	
-	# 1. Apply Gravity
+	# --- Apply Gravity ---
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
 		# WALL CLING MECHANIC (Rescued Pal #2)
 		var horizontal_input = Input.get_axis("move_left", "move_right")
 		if has_wall_climb and horizontal_input != 0 and is_on_wall():
-			# 'is_on_wall()' is enough here because it's called every frame.
-			# We clamp velocity.y to slow the descent, creating the cling effect.
 			velocity.y = min(velocity.y, 50.0) # Slow fall down wall
-			# Optionally, set velocity.x to 0 here to truly stick, but move_and_slide handles it
 			
 	else: # Reset double jump only when touching the floor
 		can_double_jump = has_double_jump
@@ -49,9 +49,9 @@ func _physics_process(delta):
 			can_double_jump = has_double_jump # Reset double jump availability
 		
 		# DOUBLE JUMP MECHANIC (Rescued Pal #1)
-		elif can_double_jump: # Check if the *ability* is unlocked AND *not used* in the air
+		elif can_double_jump:
 			velocity.y = JUMP_VELOCITY
-			can_double_jump = false # Consume the double jump
+			can_double_jump = false
 
 	# 3. Handle Horizontal Movement
 	var direction = Input.get_axis("move_left", "move_right")
@@ -61,12 +61,10 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
 		
-		
 	# 4. Use built-in function to move the body
 	move_and_slide()
 	
 	# Animation
-	
 	if not is_on_floor():
 		# WALL CLING ANIMATION CHECK
 		if has_wall_climb and is_on_wall() and velocity.y > 0 and direction != 0:
@@ -89,28 +87,33 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("Idle")
 		$AnimatedSprite2D.flip_h = last_direction < 0
 
-# --- ABILITY UNLOCK FUNCTION ---
+# --- ABILITY UNLOCK FUNCTION (The central dispatcher)---
 func unlock_ability(ability_name):
-	var sm = SaveManager
+	if sm == null:
+		print("ERROR: Save Manager is not initialized.")
+		return
+	
 	var state_changed = false
 	
+	# Add new pal logic HERE!
 	match ability_name:
 		"double_jump":
 			if not has_double_jump:
 				has_double_jump = true
 				sm.set_ability_state("has_double_jump", true)
-				print("Ability Unlocked: Double Jump!")
 				state_changed = true
 				
 		"wall_climb":
 			if not has_wall_climb:
 				has_wall_climb = true
 				sm.set_ability_state("has_wall_climb", true)
-				print("Ability Unlocked: Wall Climb!")
 				state_changed = true
+				
+		_:
+			print("WARNING: Tried to unlock unknown ability: ", ability_name)
 	
 	if state_changed:
-		if ability_name == "double_jump":
-			can_double_jump = true
+		sm.set_ability_state(ability_name, true)
+		print("Ability Unlocked: ", ability_name)
 	
 	# Optional: Show UI update here

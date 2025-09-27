@@ -1,19 +1,25 @@
-# SaveManager.gd (Autoload/Singleton)
 extends Node
 
 const SAVE_PATH = "user://game_save.dat"
 
-# 1. Variables to SAVE (Mirroring your player's ability booleans)
-# These will hold the game's current state
-var abilities = {
-	"has_double_jump": false,
-	"has_wall_climb": false,
-	# Add more abilities here as you add them
-}
+# Define ALL possible ability keys here. This is the master list.
+const ALL_ABILITY_KEYS = [
+	"double_jump", 
+	"wall_climb",
+]
+
+var abilities: Dictionary = {}
+
 # var player_position = Vector2.ZERO
 # var current_level = "world_1"
 
-
+func _ready():
+	# Initialize abilities dictionary with default 'false' values from the master list
+	for key in ALL_ABILITY_KEYS:
+		abilities[key] = false
+		
+	load_game()
+	
 # --- PUBLIC FUNCTIONS ---
 
 # Function to be called by the player to get the ability state
@@ -24,7 +30,6 @@ func get_ability_state(ability_name: String) -> bool:
 func set_ability_state(ability_name: String, value: bool):
 	if abilities.has(ability_name):
 		abilities[ability_name] = value
-		# IMPORTANT: Save immediately after a change that matters
 		save_game()
 
 
@@ -37,7 +42,7 @@ func save_game():
 		# "level": current_level,
 	}
 	
-	var json_string = JSON.stringify(save_dict, "\t") # "\t" makes it readable
+	var json_string = JSON.stringify(save_dict, "\t")
 	
 	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file:
@@ -67,7 +72,8 @@ func load_game():
 				# Iterate over the saved abilities and update the SaveManager's state
 				for key in loaded_data.abilities.keys():
 					if abilities.has(key):
-						abilities[key] = loaded_data.abilities[key]
+						if key in ALL_ABILITY_KEYS:
+							abilities[key] = loaded_data.abilities[key]
 			
 			print("Game Loaded Successfully!")
 			return true
