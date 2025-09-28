@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bb0vb25j1r3p3"]
 
 [ext_resource type="Script" uid="uid://rf01dkaa4dcc" path="res://Script/options.gd" id="1_5v8ap"]
-[ext_resource type="Script" uid="uid://bvwtq6dmlwqao" path="res://Scene/audio_control.gd" id="2_5r7rd"]
+[ext_resource type="Script" uid="uid://bvwtq6dmlwqao" path="res://Script/audio_control.gd" id="2_5r7rd"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ch5ns"]
 color = Color(0.8132577, 0.8132577, 0.81325763, 1)

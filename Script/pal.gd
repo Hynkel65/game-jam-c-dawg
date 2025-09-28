@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var ability_name: String = "double_jump" 
-@export var pal_visual_name: String = "Double Jump Pal"
+@export var ability_name: String = "" 
+@export var pal_visual_name: String = ""
 
 var rescued = false
 

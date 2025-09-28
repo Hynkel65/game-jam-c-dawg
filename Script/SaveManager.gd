@@ -4,14 +4,16 @@ const SAVE_PATH = "user://game_save.dat"
 
 # Define ALL possible ability keys here. This is the master list.
 const ALL_ABILITY_KEYS = [
-	"double_jump", 
+	"jump",
+	"run", 
 	"wall_jump",
+	"double_jump",
+	"dash"
 ]
 
 var abilities: Dictionary = {}
 
 # var player_position = Vector2.ZERO
-# var current_level = "world_1"
 
 func _ready():
 	# Initialize abilities dictionary with default 'false' values from the master list
@@ -39,7 +41,6 @@ func save_game():
 	var save_dict = {
 		"abilities": abilities,
 		# "position": player_position,
-		# "level": current_level,
 	}
 	
 	var json_string = JSON.stringify(save_dict, "\t")
