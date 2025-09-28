@@ -2,6 +2,8 @@ extends Area2D
 
 @export var ability_name: String = "" 
 @export var pal_visual_name: String = ""
+@onready var popup_ability_gain: Control = $"../CanvasLayer/popup_ability_gain"
+const PopupAbilityGain = preload("uid://df4edfia86psa")
 
 var rescued = false
 
@@ -9,7 +11,11 @@ func _ready():
 	if SaveManager.get_ability_state(ability_name):
 		hide_pal()
 		rescued = true
-		
+
+func closepopup():
+	if Input.is_action_just_pressed("interact") and popup_ability_gain.visible == true:
+		popup_ability_gain.visible = false
+
 func hide_pal():
 	$Sprite2D.visible = false
 	$CollisionShape2D.call_deferred("set_disabled", true)
@@ -28,6 +34,9 @@ func _on_body_entered(body):
 			hide_pal()
 			rescued = true
 			print("Pal '", pal_visual_name, "' rescued! Ability unlocked: ", ability_name)
+			
+			# ui popup with ability information
+			popup_ability_gain.visible = true
 		else:
 			print("ERROR: CharacterBody2D does not have the 'unlock_ability' method.")
 	elif rescued:
@@ -36,3 +45,6 @@ func _on_body_entered(body):
 		print("Collision body is not the expected CharacterBody2D (Player). Ignoring.")
 			
 			# Optional: Play a sound effect or particle effect
+
+func _process(delta: float) -> void:
+	closepopup()

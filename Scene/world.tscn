@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://btf2xrhvybsuh"]
+[gd_scene load_steps=15 format=4 uid="uid://btf2xrhvybsuh"]
 
 [ext_resource type="Texture2D" uid="uid://d7n3d14n8b0y" path="res://TileMapLayer/tiles.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://cryi4m4sfyfqi" path="res://Script/world.gd" id="1_tlwt5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dlsy5l24df2yk" path="res://TileMapLayer/BG Layer/bg_3.png" id="5_0gfnl"]
 [ext_resource type="PackedScene" uid="uid://c32te00qv2qe" path="res://Scene/pause_menu.tscn" id="5_pcvp0"]
 [ext_resource type="Texture2D" uid="uid://bdqxdpgrg0qeq" path="res://TileMapLayer/BG Layer/bg_4.png" id="6_kufhj"]
+[ext_resource type="PackedScene" uid="uid://qk5u5sklushd" path="res://Scene/popup_ability_gain.tscn" id="11_0gfnl"]
 [ext_resource type="AudioStream" uid="uid://p7n3lp6abuje" path="res://Audio/Music/game_theme1.mp3" id="11_nka0b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
@@ -463,6 +464,9 @@ ability_name = "dash"
 pal_visual_name = "Dash"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="popup_ability_gain" parent="CanvasLayer" instance=ExtResource("11_0gfnl")]
+visible = false
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("5_pcvp0")]
 visible = false
