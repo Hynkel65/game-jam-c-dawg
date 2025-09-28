@@ -25,8 +25,9 @@ func _on_resume_pressed() -> void:
 	resume()
 
 func _on_reset_pressed() -> void:
-	get_tree().reload_current_scene()
 	resume()
+	SaveManager.reset_save()
+	get_tree().reload_current_scene()
 
 func _on_options_pressed() -> void:
 	print("options")

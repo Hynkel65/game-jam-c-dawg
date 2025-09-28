@@ -14,7 +14,6 @@ func _on_options_pressed() -> void:
 	print("Options Pressed")
 	main_buttons.visible = false
 	options.open()
-	#get_tree().change_scene_to_file("res://Scene/options.tscn")
 
 func _on_exit_pressed() -> void:
 	print("Exit Pressed")
@@ -22,6 +21,8 @@ func _on_exit_pressed() -> void:
 
 func _on_new_game_pressed() -> void:
 	print("New Game Pressed")
+	SaveManager.reset_save()
+	get_tree().change_scene_to_file("res://Scene/world.tscn")
 
 func _process(delta: float) -> void:
 	if options.visible == false:

@@ -17,12 +17,16 @@ var abilities: Dictionary = {}
 
 func _ready():
 	# Initialize abilities dictionary with default 'false' values from the master list
-	for key in ALL_ABILITY_KEYS:
-		abilities[key] = false
+	set_default_ability()
 		
 	load_game()
 	
 # --- PUBLIC FUNCTIONS ---
+
+# Function to set all ability to the default state 'false' 
+func set_default_ability():
+	for key in ALL_ABILITY_KEYS:
+		abilities[key] = false
 
 # Function to be called by the player to get the ability state
 func get_ability_state(ability_name: String) -> bool:
@@ -33,7 +37,6 @@ func set_ability_state(ability_name: String, value: bool):
 	if abilities.has(ability_name):
 		abilities[ability_name] = value
 		save_game()
-
 
 # --- FILE HANDLING ---
 
@@ -84,3 +87,20 @@ func load_game():
 	else:
 		print("ERROR: Could not open save file for loading.")
 		return false
+
+func reset_save():
+	set_default_ability()
+	var save_dict = {
+		"abilities": abilities,
+		#"position": player_position,
+	}
+	
+	var json_string = JSON.stringify(save_dict, "\t")
+	
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_line(json_string)
+		print("New game Saved Successfully!")
+		file.close()
+	else:
+		print("ERROR: Could not save game to path:", SAVE_PATH)
