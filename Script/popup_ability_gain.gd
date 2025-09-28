@@ -1,6 +1,10 @@
 extends Control
 
-@onready var ability_text: RichTextLabel = $VBoxContainer/ability_text
+@onready var ability_text: Label = $PanelContainer/VBoxContainer/ability_text
+@onready var popup_ability_gain: Control = $"."
 
-func set_text(text):
-	ability_text.add_text(text)
+func _ready(message="yep") -> void:
+	set_msg(message)
+
+func set_msg(text = ""):
+	ability_text.set_text(text)

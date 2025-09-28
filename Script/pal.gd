@@ -3,7 +3,6 @@ extends Area2D
 @export var ability_name: String = "" 
 @export var pal_visual_name: String = ""
 @onready var popup_ability_gain: Control = $"../CanvasLayer/popup_ability_gain"
-const PopupAbilityGain = preload("uid://df4edfia86psa")
 
 var rescued = false
 
@@ -35,6 +34,7 @@ func _on_body_entered(body):
 			rescued = true
 			print("Pal '", pal_visual_name, "' rescued! Ability unlocked: ", ability_name)
 			
+			popup_ability_gain.set_msg("Pal '"+pal_visual_name+"' rescued! Ability unlocked: "+ability_name)
 			# ui popup with ability information
 			popup_ability_gain.visible = true
 		else:
@@ -46,5 +46,5 @@ func _on_body_entered(body):
 			
 			# Optional: Play a sound effect or particle effect
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	closepopup()
