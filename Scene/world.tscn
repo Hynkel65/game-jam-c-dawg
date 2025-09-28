@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d7n3d14n8b0y" path="res://TileMapLayer/tiles.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://cryi4m4sfyfqi" path="res://Script/world.gd" id="1_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://blhr26avn66pn" path="res://Scene/player.tscn" id="3_aqk2v"]
-[ext_resource type="PackedScene" path="res://Scene/pal.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://dln43cnqunx66" path="res://Scene/pal.tscn" id="4_aqk2v"]
 [ext_resource type="PackedScene" uid="uid://c32te00qv2qe" path="res://Scene/pause_menu.tscn" id="5_pcvp0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fj7yv"]
@@ -366,21 +366,10 @@ tile_set = SubResource("TileSet_tlwt5")
 
 [node name="Player" parent="." instance=ExtResource("3_aqk2v")]
 position = Vector2(-68, 35)
-collision_layer = 2
 collision_mask = 9
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
-
-[node name="Pal" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(381, 41)
-collision_mask = 2
-
-[node name="Pal2" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(438, 41)
-collision_mask = 2
-ability_name = "wall_jump"
-pal_visual_name = "Wall jump Pal"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -390,3 +379,28 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+
+[node name="Pal" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(54, 42)
+ability_name = "jump"
+pal_visual_name = "Jump Pal"
+
+[node name="Pal2" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(159, 42)
+ability_name = "run"
+pal_visual_name = "Run Pal"
+
+[node name="Pal3" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(262, 43)
+ability_name = "wall_jump"
+pal_visual_name = "Wall Jump Pal"
+
+[node name="Pal4" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(364, 43)
+ability_name = "double_jump"
+pal_visual_name = "Double Jump Pal"
+
+[node name="Pal5" parent="." instance=ExtResource("4_aqk2v")]
+position = Vector2(494, 42)
+ability_name = "dash"
+pal_visual_name = "Dash"
