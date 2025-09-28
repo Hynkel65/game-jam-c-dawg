@@ -25,9 +25,9 @@ func _on_resume_pressed() -> void:
 	resume()
 
 func _on_reset_pressed() -> void:
-	resume()
 	get_tree().reload_current_scene()
-	
+	resume()
+
 func _on_options_pressed() -> void:
 	print("options")
 	pause_panel.visible = false
@@ -42,7 +42,3 @@ func _process(delta: float) -> void:
 	pressesc()
 	if options.visible == false:
 		pause_panel.visible = true
-
-
-func _on_restart_pressed() -> void:
-	pass # Replace with function body.

@@ -15,6 +15,10 @@ run/main_scene="uid://btf2xrhvybsuh"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://Audio/default_bus_layout.tres"
+
 [autoload]
 
 SaveManager="*res://Script/SaveManager.gd"
