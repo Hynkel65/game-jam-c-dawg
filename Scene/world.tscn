@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=4 uid="uid://btf2xrhvybsuh"]
+[gd_scene load_steps=22 format=4 uid="uid://btf2xrhvybsuh"]
 
 [ext_resource type="Texture2D" uid="uid://d7n3d14n8b0y" path="res://Tiles/tiles.png" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://cryi4m4sfyfqi" path="res://Script/world.gd" id="1_tlwt5"]
-[ext_resource type="Script" uid="uid://x8y6iw4oxol1" path="res://Script/death_zone.gd" id="2_0gfnl"]
+[ext_resource type="Script" path="res://Script/death_zone.gd" id="2_0gfnl"]
 [ext_resource type="Texture2D" uid="uid://d1omwjfkaq1oq" path="res://Tiles/BG Layer/bg_0.png" id="2_y56vo"]
 [ext_resource type="Texture2D" uid="uid://ct5lxb88q3jmp" path="res://Tiles/BG Layer/bg_1.png" id="3_6a5p4"]
 [ext_resource type="PackedScene" uid="uid://blhr26avn66pn" path="res://Scene/player.tscn" id="3_aqk2v"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c32te00qv2qe" path="res://Scene/pause_menu.tscn" id="5_pcvp0"]
 [ext_resource type="Texture2D" uid="uid://bdqxdpgrg0qeq" path="res://Tiles/BG Layer/bg_4.png" id="6_kufhj"]
 [ext_resource type="Texture2D" uid="uid://b0soxsl3cv60c" path="res://Tiles/Water_tall.png" id="8_nka0b"]
+[ext_resource type="PackedScene" path="res://Scene/popup_ability_gain.tscn" id="11_0gfnl"]
 [ext_resource type="AudioStream" uid="uid://p7n3lp6abuje" path="res://Audio/Music/game_theme1.mp3" id="11_nka0b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kufhj"]
@@ -515,7 +516,7 @@ tile_map_data = PackedByteArray("AABeABUAAAAGAAkAAABfABUAAAAFAAkAAABgABUAAAAFAAk
 tile_set = SubResource("TileSet_kufhj")
 
 [node name="Player" parent="." instance=ExtResource("3_aqk2v")]
-position = Vector2(4531, 129)
+position = Vector2(923, 231)
 disable_mode = 2
 collision_mask = 9
 
@@ -561,6 +562,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+
+[node name="popup_ability_gain" parent="CanvasLayer" instance=ExtResource("11_0gfnl")]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

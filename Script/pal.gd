@@ -7,6 +7,7 @@ extends Area2D
 var rescued = false
 
 func _ready():
+	popup_ability_gain.visible = false
 	if SaveManager.get_ability_state(ability_name):
 		hide_pal()
 		rescued = true
