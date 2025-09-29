@@ -24,6 +24,6 @@ func _on_new_game_pressed() -> void:
 	SaveManager.reset_save()
 	get_tree().change_scene_to_file("res://Scene/world.tscn")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if options.visible == false:
 		main_buttons.visible = true
