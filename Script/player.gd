@@ -8,6 +8,7 @@ const RUN_SPEED = 200.0
 const JUMP_VELOCITY = -300.0
 const WALL_JUMP_VELOCITY = -200.0
 const WALL_JUMP_COOLDOWN_TIME = 0.5
+const COYOTE_TIME = 0.1
 
 # Dash Variables
 const DASH_COOLDOWN_TIME = 1.0
@@ -31,6 +32,7 @@ var dash_cooldown: float = 0.0
 var dash_timer: float = 0.0
 var last_move_action: String = ""
 var double_tap_timer: float = 0.0
+var coyote_timer: float = 0.0
 
 var last_direction: float = 1.0
 
@@ -103,6 +105,9 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
+		if coyote_timer > 0.0:
+			coyote_timer -= delta
+		
 		var horizontal_input = Input.get_axis("move_left", "move_right")
 		if is_on_wall():
 			if wall_jump_cooldown <= 0.0 and sign(horizontal_input) == -get_wall_normal().x and horizontal_input != 0:
@@ -110,11 +115,12 @@ func _physics_process(delta):
 	else: 
 		can_double_jump = has_double_jump
 		wall_jump_cooldown = 0.0
+		coyote_timer = COYOTE_TIME
 
 	# 2. Handle Jump Input
 	if Input.is_action_just_pressed("jump") and has_jump:
 		# Jump logic remains the same...
-		if is_on_floor():
+		if coyote_timer > 0.0 and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 		
 		# WALL JUMP MECHANIC
@@ -217,3 +223,16 @@ func unlock_ability(ability_name):
 		print("Ability Unlocked: ", ability_name)
 	
 	# Optional: Show UI update here
+	
+func die():
+	set_process_unhandled_input(false)
+	set_physics_process(false)
+	
+	$AnimatedSprite2D.play("Death")
+	
+	print("You Are Dead")
+	
+	var timer = get_tree().create_timer(3.0)
+	await timer.timeout
+	
+	get_tree().reload_current_scene()
