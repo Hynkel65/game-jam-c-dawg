@@ -1,4 +1,5 @@
 extends CharacterBody2D
+@onready var sfx_player: AnimationPlayer = $sfx_player
 
 # Core Movement Variables
 const SPEED = 100.0
@@ -134,6 +135,7 @@ func _physics_process(delta):
 		# DOUBLE JUMP MECHANIC
 		elif can_double_jump:
 			velocity.y = JUMP_VELOCITY
+			sfx_player.play("sfx_jump")
 			can_double_jump = false
 
 	# 3. Handle Horizontal Movement
@@ -158,6 +160,7 @@ func _physics_process(delta):
 		if velocity.y < 0:
 			$AnimatedSprite2D.animation = "Jump"
 			$AnimatedSprite2D.flip_h = last_direction < 0
+			sfx_player.play("sfx_jump")
 		elif velocity.y > 0:
 			if is_on_wall():
 				$AnimatedSprite2D.animation = "Cling"
@@ -172,9 +175,11 @@ func _physics_process(delta):
 		if has_run:
 			$AnimatedSprite2D.play("Run")
 			$AnimatedSprite2D.flip_h = last_direction < 0
+			sfx_player.play("sfx_run")
 		else:
 			$AnimatedSprite2D.play("Walk")
 			$AnimatedSprite2D.flip_h = last_direction < 0
+			sfx_player.play("sfx_walk")
 	else:
 		# Idle (Standing still on the floor)
 		$AnimatedSprite2D.play("Idle")

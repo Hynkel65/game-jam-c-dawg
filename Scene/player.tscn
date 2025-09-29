@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://blhr26avn66pn"]
+[gd_scene load_steps=39 format=3 uid="uid://blhr26avn66pn"]
 
 [ext_resource type="Script" uid="uid://clykhg27kleg4" path="res://Script/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://b0fid8ofj5t1v" path="res://Sprite/Player/Cling_0.png" id="2_5tmop"]
@@ -30,6 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://ghqows80nshh" path="res://Sprite/Player/walk_6.png" id="28_1axnv"]
 [ext_resource type="Texture2D" uid="uid://c6hsmwa4koayq" path="res://Sprite/Player/walk_7.png" id="29_bk8bd"]
 [ext_resource type="Texture2D" uid="uid://b5jl6q0tw8vye" path="res://Sprite/Player/walk_8.png" id="30_cvqm3"]
+[ext_resource type="AudioStream" uid="uid://d0ki6nh61myxa" path="res://Audio/Sfx/Retro FootStep Grass 01.wav" id="31_c1eh6"]
+[ext_resource type="AudioStream" uid="uid://bmhsey2po0bg3" path="res://Audio/Sfx/Retro Jump Classic 08.wav" id="32_ddib3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pgbbb"]
 animations = [{
@@ -168,6 +170,73 @@ animations = [{
 radius = 8.0
 height = 28.0
 
+[sub_resource type="Animation" id="Animation_c1eh6"]
+resource_name = "sfx_walk"
+length = 0.4
+step = 0.1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("31_c1eh6")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="Animation" id="Animation_ddib3"]
+resource_name = "sfx_run"
+length = 0.2
+step = 0.1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("31_c1eh6")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="Animation" id="Animation_h2j5n"]
+resource_name = "sfx_jump"
+length = 0.3
+step = 0.1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("32_ddib3")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddib3"]
+_data = {
+&"sfx_jump": SubResource("Animation_h2j5n"),
+&"sfx_run": SubResource("Animation_ddib3"),
+&"sfx_walk": SubResource("Animation_c1eh6")
+}
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 8
@@ -180,3 +249,11 @@ animation = &"Walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("CapsuleShape2D_331ug")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="sfx_player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ddib3")
+}

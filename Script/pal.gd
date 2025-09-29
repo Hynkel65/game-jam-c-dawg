@@ -35,6 +35,7 @@ func _on_body_entered(body):
 			rescued = true
 			print("Pal '", pal_visual_name, "' rescued! Ability unlocked: ", ability_name)
 			
+			popup_ability_gain.visible =false
 			popup_ability_gain.set_msg("Pal '"+pal_visual_name+"' rescued! Ability unlocked: "+ability_name)
 			# ui popup with ability information
 			popup_ability_gain.visible = true
