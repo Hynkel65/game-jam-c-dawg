@@ -49,6 +49,11 @@ func _ready():
 		has_double_jump = sm.get_ability_state("double_jump")
 		has_wall_jump = sm.get_ability_state("wall_jump")
 		has_dash = sm.get_ability_state("dash")
+		
+		if sm.player_position != Vector2.ZERO:
+			# Apply the loaded global position
+			global_position = sm.player_position
+			print("Player position loaded to:", global_position)
 	
 	# Initialize internal state based on abilities
 	can_double_jump = has_double_jump
@@ -224,7 +229,7 @@ func unlock_ability(ability_name):
 	
 	if state_changed:
 		sm.set_ability_state(ability_name, true)
-		sm.save_game()
+		sm.save_game(self)
 		print("Ability Unlocked: ", ability_name)
 	
 	# Optional: Show UI update here

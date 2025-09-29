@@ -36,7 +36,7 @@ func _on_body_entered(body):
 			print("Pal '", pal_visual_name, "' rescued! Ability unlocked: ", ability_name)
 			
 			popup_ability_gain.visible =false
-			popup_ability_gain.set_msg("Pal '"+pal_visual_name+"' rescued! Ability unlocked: "+ability_name)
+			popup_ability_gain.set_msg("Clone Rescued! "+pal_visual_name+"' teaches you the ability "+ability_name+"!")
 			# ui popup with ability information
 			popup_ability_gain.visible = true
 		else:
