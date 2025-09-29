@@ -22,6 +22,8 @@ buses/default_bus_layout="res://Audio/default_bus_layout.tres"
 [autoload]
 
 SaveManager="*res://Script/SaveManager.gd"
+GlobalAudioPlayer="*res://Script/global_audio_player.gd"
+GlobalAudioPlayerScene="*res://Scene/global_audio_player.tscn"
 
 [display]
 

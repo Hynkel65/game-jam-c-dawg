@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjwcbec6uyyyq"]
+[gd_scene load_steps=11 format=3 uid="uid://cjwcbec6uyyyq"]
 
 [ext_resource type="Script" uid="uid://bmsxv3x1vrnjc" path="res://Script/main_menu.gd" id="1_06t4h"]
 [ext_resource type="PackedScene" uid="uid://bb0vb25j1r3p3" path="res://Scene/options.tscn" id="2_87ipw"]
+[ext_resource type="Texture2D" uid="uid://dl6v4xxw1pyf" path="res://Tiles/background.png" id="2_kqsxi"]
 [ext_resource type="AudioStream" uid="uid://yyy3bxxaqenm" path="res://Audio/Music/main_theme1.mp3" id="3_hii65"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
@@ -42,13 +43,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_kqsxi")
 
 [node name="main_buttons" type="VBoxContainer" parent="."]
 layout_mode = 1

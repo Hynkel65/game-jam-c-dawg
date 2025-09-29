@@ -1,3 +1,37 @@
-[gd_scene load_steps=0 format=3 uid="uid://b760mc42y4lck"]
+[gd_scene load_steps=5 format=3 uid="uid://d1fs31pwtsqcv"]
+
+[ext_resource type="Script" uid="uid://c26iowyher6d2" path="res://Script/global_audio_player.gd" id="1_jqenx"]
+[ext_resource type="AudioStream" uid="uid://c7tb7sivym2uf" path="res://Audio/Sfx/Retro Instrument - crystal - C00.wav" id="2_jqenx"]
+
+[sub_resource type="Animation" id="Animation_ptm1j"]
+resource_name = "button_pressed"
+length = 0.5
+step = 0.1
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_jqenx")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jqenx"]
+_data = {
+&"button_pressed": SubResource("Animation_ptm1j")
+}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+script = ExtResource("1_jqenx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jqenx")
+}

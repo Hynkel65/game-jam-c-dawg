@@ -516,7 +516,7 @@ tile_map_data = PackedByteArray("AABeABUAAAAGAAkAAABfABUAAAAFAAkAAABgABUAAAAFAAk
 tile_set = SubResource("TileSet_kufhj")
 
 [node name="Player" parent="." instance=ExtResource("3_aqk2v")]
-position = Vector2(923, 231)
+position = Vector2(921, 277)
 disable_mode = 2
 collision_mask = 9
 
@@ -529,12 +529,12 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="Pal" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(-1198, 378)
+position = Vector2(854, 283)
 ability_name = "jump"
 pal_visual_name = "Jump Pal"
 
 [node name="Pal2" parent="." instance=ExtResource("4_aqk2v")]
-position = Vector2(1345, 123)
+position = Vector2(969, 285)
 ability_name = "run"
 pal_visual_name = "Pal Run"
 
