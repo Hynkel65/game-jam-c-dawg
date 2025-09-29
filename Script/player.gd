@@ -146,7 +146,7 @@ func _physics_process(delta):
 			velocity.x = direction * SPEED
 			last_direction = direction
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED * 0.1)
+			velocity.x = move_toward(velocity.x, 0, SPEED * 0.2)
 	
 	move_and_slide()
 	
