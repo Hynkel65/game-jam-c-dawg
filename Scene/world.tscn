@@ -553,7 +553,11 @@ tile_set = SubResource("TileSet_kufhj")
 
 [node name="Player" parent="." instance=ExtResource("3_aqk2v")]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 position = Vector2(923, 231)
+=======
+position = Vector2(4876, 18)
+>>>>>>> Stashed changes
 =======
 position = Vector2(4876, 18)
 >>>>>>> Stashed changes
@@ -570,7 +574,11 @@ position_smoothing_speed = 10.0
 
 [node name="Pal" parent="." instance=ExtResource("4_aqk2v")]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 position = Vector2(-1198, 378)
+=======
+position = Vector2(448, 380)
+>>>>>>> Stashed changes
 =======
 position = Vector2(448, 380)
 >>>>>>> Stashed changes
@@ -579,7 +587,11 @@ pal_visual_name = "Jump Pal"
 
 [node name="Pal2" parent="." instance=ExtResource("4_aqk2v")]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 position = Vector2(1345, 123)
+=======
+position = Vector2(1344, 124)
+>>>>>>> Stashed changes
 =======
 position = Vector2(1344, 124)
 >>>>>>> Stashed changes
