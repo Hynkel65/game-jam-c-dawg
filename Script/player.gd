@@ -242,7 +242,7 @@ func die():
 	
 	print("You Are Dead")
 	
-	var timer = get_tree().create_timer(3.0)
+	var timer = get_tree().create_timer(1.5)
 	await timer.timeout
 	
 	get_tree().reload_current_scene()

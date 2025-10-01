@@ -167,12 +167,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_331ug"]
-radius = 8.0
-height = 28.0
+radius = 4.0
+height = 26.0
 
-[sub_resource type="Animation" id="Animation_c1eh6"]
-resource_name = "sfx_walk"
-length = 0.4
+[sub_resource type="Animation" id="Animation_h2j5n"]
+resource_name = "sfx_jump"
+length = 0.3
 step = 0.1
 tracks/0/type = "audio"
 tracks/0/imported = false
@@ -184,7 +184,7 @@ tracks/0/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("31_c1eh6")
+"stream": ExtResource("32_ddib3")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -210,9 +210,9 @@ tracks/0/keys = {
 }
 tracks/0/use_blend = true
 
-[sub_resource type="Animation" id="Animation_h2j5n"]
-resource_name = "sfx_jump"
-length = 0.3
+[sub_resource type="Animation" id="Animation_c1eh6"]
+resource_name = "sfx_walk"
+length = 0.4
 step = 0.1
 tracks/0/type = "audio"
 tracks/0/imported = false
@@ -224,7 +224,7 @@ tracks/0/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("32_ddib3")
+"stream": ExtResource("31_c1eh6")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -247,7 +247,7 @@ sprite_frames = SubResource("SpriteFrames_pgbbb")
 animation = &"Walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+z_index = 100
 shape = SubResource("CapsuleShape2D_331ug")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
